@@ -1,11 +1,11 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   onAuthStateChanged
-} from "firebase/auth";
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBDeZ3ZlIMCFm7NW2DppxaNv44wcLNUgF8",
@@ -20,24 +20,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+
+
 window.signUp = () => {
   createUserWithEmailAndPassword(
     auth,
-    email.value,
-    password.value
-  );
+    emailInput.value,
+    passwordInput.value
+  ).catch(alert);
 };
 
 window.login = () => {
   signInWithEmailAndPassword(
     auth,
-    email.value,
-    password.value
-  );
+    emailInput.value,
+    passwordInput.value
+  ).catch(alert);
 };
 
 window.resetPassword = () => {
-  sendPasswordResetEmail(auth, email.value);
+  sendPasswordResetEmail(auth, emailInput.value)
+    .then(() => alert("Password reset email sent"))
+    .catch(alert);
 };
 
 onAuthStateChanged(auth, user => {
